@@ -24,23 +24,28 @@
             <hr>
             <h3> Rate the questions from a 1 of Strongly Disagree to a 5 Strongly Agree</h3>
         </div>
+        <button id="submit" class="linked-button">
+            submit
+        </button>
 
-        <button id="submit" class="linked-button"> submit</button>
     </div>
 
     <!-- Div to show up after submiting survey -->
-    <div id='suggested-friend'>
-        <h2 id='suggested-friend-text'></h2>
-        <img id ='suggested-friend-img' src='https://via.placeholder.com/592x512'>
+    <div id='suggested-friend' class="">
+        <div id='suggested-friend-top'>
+            <h2 id='suggested-friend-text'>test</h2>
+            <button id="close"> Close </button>
+        </div>
+        <img id='suggested-friend-img' src='https://via.placeholder.com/592x512'>
     </div>
 </body>
 
 </html>
 <script>
     const questions = [
-        'How do you feel about puns?', 
+        'How do you feel about puns?',
         'Do you like to ad-lib most things?',
-        'Your mind is always buzzing with unexplored ideas and plans.','Is peer pressure a major factor in your decision making?',
+        'Your mind is always buzzing with unexplored ideas and plans.', 'Is peer pressure a major factor in your decision making?',
         'It is often difficult for you to relate to other people’s feelings.',
         "You think that everyone’s views should be respected regardless of whether they are supported by facts or not.",
         'You feel more energetic after spending time with a group of people.',
@@ -48,26 +53,26 @@
         'People can rarely upset you.',
         'Do you perform better under pressure?'
     ];
-    
+
     function displayQuestions() {
         for (index in questions) {
             const newQuestion = $('<h3> Question ' + (parseInt(index) + 1) + '</h3>').append(
                 '<p>' + questions[index] + '</p>').append(
-                '<input type="radio" name="q'+ index + '" value="1"><label>1</label>').append(
-                '<input type="radio" name="q'+ index + '" value="2"><label>2</label>').append(
-                '<input type="radio" name="q'+ index + '" value="3"><label>3</label>').append(
-                '<input type="radio" name="q'+ index + '" value="4"><label>4</label>').append(
-                '<input type="radio" name="q'+ index + '" value="5"><label>5</label>');
+                    '<input type="radio" name="q' + index + '" value="1"><label>1</label>').append(
+                        '<input type="radio" name="q' + index + '" value="2"><label>2</label>').append(
+                            '<input type="radio" name="q' + index + '" value="3"><label>3</label>').append(
+                                '<input type="radio" name="q' + index + '" value="4"><label>4</label>').append(
+                                    '<input type="radio" name="q' + index + '" value="5"><label>5</label>');
 
             $("#questions").append(newQuestion);
         }
     }
 
-    $("#submit").on('click', function(event){
+    $("#submit").on('click', function (event) {
         const scores = [];
         event.preventDefault();
-        for (let i = 0; i < questions.length; i++){
-            scores.push($("input[name=q"+i+"]:checked").val());
+        for (let i = 0; i < questions.length; i++) {
+            scores.push($("input[name=q" + i + "]:checked").val());
         }
 
         const newPerson = {
@@ -76,14 +81,23 @@
             scores: scores
         }
 
-        $.post('/api/friends', newPerson, function(data){
-            $("#suggested-friend-img").attr('src', data.photo);
+        $.post('/api/friends', newPerson, function (data) {
+            $("#suggested-friend-img").attr({
+                'src': data.photo,
+                'width': '592px',
+                'height': '512px'
+            });
             $("#suggested-friend-text").text(data.name);
             $("#suggested-friend").show();
             console.log(data);
         });
+        $("html").scrollTop(0);
     });
+
+    $("#close").on('click', function (){
+        $("#suggested-friend").hide();
+    })
     // Startup
-    $("#suggested-friend").hide();
+    // $("#suggested-friend").hide();
     displayQuestions();
 </script>
