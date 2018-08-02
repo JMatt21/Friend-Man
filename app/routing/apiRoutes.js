@@ -7,7 +7,7 @@ module.exports = function (app) {
 
     app.post("/api/friends", function (req, res) {
         const newPerson = req.body;
-        let minimum_difference = 100;
+        let minimum_difference = 1000;
         let ret = friendsData[0];
 
         for (person of friendsData) {
