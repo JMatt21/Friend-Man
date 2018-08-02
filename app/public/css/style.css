@@ -1,17 +1,24 @@
 h1, h2, h3, p, a {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #000000bd;
 }
 
 html {
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
     background-image: url('../images/background.png');
     background-size: cover;
     background-repeat: no-repeat;
-    /* background-position: center center; */
+    background-position: center center;
     min-height: 100%;
+}
+
+hr {
+    margin: 20px 0;
+    border: 4px #3d3d3d60 solid;
+    border-radius: 50px;
 }
 
 h1 {
@@ -35,7 +42,8 @@ h3 {
 p {
     font-weight: 100;
     font-size: 20px;
-    margin: 5px 0;
+    line-height: 30px;
+    margin: 10px 0;
 }
 label {
     font-weight: 100;
@@ -60,15 +68,20 @@ label {
 
 .linked-button {
     color: black;
-    border: 5px blue solid;
+    border: 5px rgb(37, 37, 172, 0.3) solid;
     border-radius: 15px;
+    background-color: rgba(37, 37, 172, 0.301);
     text-decoration: none;
     font-weight: normal;
     cursor: pointer;
+    transition: inherit;
+    -webkit-transition: all .5s;
 }
 
 .linked-button:hover {
-    color: #fffddd;
+    /* color: #fffddd; */
+    border: 5px rgb(37, 37, 172, 0.7) solid;
+    background-color: rgba(37, 37, 172, 0.7);
 }
 #questions {
     text-align: left;
@@ -94,4 +107,34 @@ label {
    content: '';
    clear: both;
    display: table;
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        margin: 0 3px;
+    }
+    h1 {
+        font-size: 100px;
+    }
+}
+
+@media screen and (max-width: 1100px){
+    h1 {
+        font-size: 80px;
+    }
+}
+
+@media screen and (max-width: 656px){
+    h1 {
+        font-size: 70px;
+    }
+}
+
+@media screen and (max-width: 455px){
+    h1 {
+        font-size: 45px;
+    }
+    .start-button {
+        font-size: 30px;
+    }
 }
