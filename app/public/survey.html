@@ -13,23 +13,24 @@
 
 <body>
     <div class='container'>
-        <h2> Survery Questions </h2>
-        <hr>
-        <h3> About You </h3>
-        <p> Name </p>
-        <input type='text' id='name'>
-        <p> Link To Photo </p>
-        <input type='text' id='photo-link'>
-        <hr>
-
-        <div id='questions'></div>
+        <div id='questions'>
+            <h2> Survery Questions </h2>
+            <hr>
+            <h3> About You </h3>
+            <p> Name </p>
+            <input type='text' id='name'>
+            <p> Link To Photo </p>
+            <input type='text' id='photo-link'>
+            <hr>
+        </div>
 
         <button id="submit"> submit</button>
     </div>
 
-    <!-- Image to show up after submiting survey -->
-    <div id="suggested-friend">
-        <img src='https://via.placeholder.com/592x512'>
+    <!-- Div to show up after submiting survey -->
+    <div id='suggested-friend'>
+        <h2 id='suggested-friend-text'></h2>
+        <img id ='suggested-friend-img' src='https://via.placeholder.com/592x512'>
     </div>
 </body>
 
@@ -44,7 +45,6 @@
         'You feel more energetic after spending time with a group of people.',
         'Your mind is always buzzing with unexplored ideas and plans.',
         'People can rarely upset you.',
-        'You rarely get carried away by fantasies and ideas.',
         'Do you perform better under pressure?'
     ];
     
@@ -52,11 +52,11 @@
         for (index in questions) {
             const newQuestion = $('<h3> Question ' + (parseInt(index) + 1) + '</h3>').append(
                 '<p>' + questions[index] + '</p>').append(
-                '<input type="radio" name="q'+ index + '" value="1"> 1').append(
-                '<input type="radio" name="q'+ index + '" value="2"> 2').append(
-                '<input type="radio" name="q'+ index + '" value="3"> 3').append(
-                '<input type="radio" name="q'+ index + '" value="4"> 4').append(
-                '<input type="radio" name="q'+ index + '" value="5"> 5');
+                '<input type="radio" name="q'+ index + '" value="1"><label>1</label>').append(
+                '<input type="radio" name="q'+ index + '" value="2"><label>2</label>').append(
+                '<input type="radio" name="q'+ index + '" value="3"><label>3</label>').append(
+                '<input type="radio" name="q'+ index + '" value="4"><label>4</label>').append(
+                '<input type="radio" name="q'+ index + '" value="5"><label>5</label>');
 
             $("#questions").append(newQuestion);
         }
@@ -71,13 +71,14 @@
 
         const newPerson = {
             name: $("#name").val().trim(),
-            photoLink: $("#photo-link").val().trim(),
+            photo: $("#photo-link").val().trim(),
             scores: scores
         }
 
-        $("#suggested-friend").show();
-
         $.post('/api/friends', newPerson, function(data){
+            $("#suggested-friend-img").attr('src', data.photo);
+            $("#suggested-friend-text").text(data.name);
+            $("#suggested-friend").show();
             console.log(data);
         });
     });
