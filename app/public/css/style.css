@@ -1,0 +1,56 @@
+
+h1 {
+    font-size: 150px;
+    /* margin: 0 15%; */
+    width: 100%;
+    float: right;
+}
+
+.container {
+    margin: 0 15%;
+    text-align: center;
+}
+
+.title {
+    margin: 100px 15%;
+}
+
+
+.start-button {
+    font-size: 50px;
+}
+
+.linked-button {
+    color: black;
+    border: 5px blue solid;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.linked-button:hover {
+    color: #fffddd;
+}
+
+#footer {
+   
+}
+
+#suggested-friend {
+    position:absolute;
+    width:592px; /*image width */
+    height:512px; /*image height */
+    left:50%; 
+    top:50%;
+    margin-left:-296px; /*image width/2 */
+    margin-top:-256px; /*image height/2 */
+}
+
+
+
+.clearfix::after {
+   content: '';
+   clear: both;
+   display: table;
+}

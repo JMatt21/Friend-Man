@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Friend Man</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='./css/reset.css'>
+    <link rel='stylesheet' href='./css/style.css'>
+    <script src='https://code.jquery.com/jquery-3.3.1.js' integrity='sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=' crossorigin='anonymous'></script>
+</head>
+
+<body>
+    <div class='container'>
+        <h2> Survery Questions </h2>
+        <hr>
+        <h3> About You </h3>
+        <p> Name </p>
+        <input type='text' id='name'>
+        <p> Link To Photo </p>
+        <input type='text' id='photo-link'>
+        <hr>
+
+        <div id='questions'></div>
+
+        <button id="submit"> submit</button>
+    </div>
+
+    <!-- Image to show up after submiting survey -->
+    <div id="suggested-friend">
+        <img src='https://via.placeholder.com/592x512'>
+    </div>
+</body>
+
+</html>
+<script>
+    const questions = ['How do you feel about puns?', 'test2','test2','test2','test2','test2'];
+    
+    function displayQuestions() {
+        for (index in questions) {
+            const newQuestion = $('<h3> Question ' + (parseInt(index) + 1) + '</h3>').append(
+                '<p>' + questions[index] + '</p>').append(
+                '<input type="radio" name="q'+ index + '" value="1"> 1').append(
+                '<input type="radio" name="q'+ index + '" value="2"> 2').append(
+                '<input type="radio" name="q'+ index + '" value="3"> 3').append(
+                '<input type="radio" name="q'+ index + '" value="4"> 4').append(
+                '<input type="radio" name="q'+ index + '" value="5"> 5');
+
+            $("#questions").append(newQuestion);
+        }
+    }
+
+    $("#submit").on('click', function(event){
+        const scores = [];
+        event.preventDefault();
+        for (let i = 0; i < questions.length; i++){
+            scores.push($("input[name=q"+i+"]:checked").val());
+        }
+
+        const newPerson = {
+            name: $("#name").val().trim(),
+            photoLink: $("#photo-link").val().trim(),
+            scores: scores
+        }
+
+        $("#suggested-friend").show();
+
+        $.post('/api/friends', newPerson, function(data){
+            console.log(data);
+        });
+    });
+    // Startup
+    $("#suggested-friend").hide();
+    displayQuestions();
+</script>
