@@ -24,6 +24,9 @@
             <hr>
             <h3> Rate the questions from a 1 of Strongly Disagree to a 5 Strongly Agree</h3>
         </div>
+        <p class='error-text'>
+            ALL fields and questions must be answered.
+        </p>
         <button id="submit" class="linked-button">
             Submit Survey
         </button>
@@ -31,7 +34,7 @@
     </div>
 
     <!-- Div to show up after submiting survey -->
-    <div id='suggested-friend' class="">
+    <div id='suggested-friend'>
         <div id='suggested-friend-top'>
             <h2 id='suggested-friend-text'>test</h2>
             <button id="close"> Close </button>
@@ -45,7 +48,7 @@
     const questions = [
         'How do you feel about puns?',
         'Do you like to ad-lib most things?',
-        'Your mind is always buzzing with unexplored ideas and plans.', 
+        'Your mind is always buzzing with unexplored ideas and plans.',
         'Is peer pressure a major factor in your decision making?',
         "Is it difficult to relate to other people's feelings?",
         "Should other people's views be respected if they are not backed up by facts?",
@@ -71,34 +74,42 @@
 
     $("#submit").on('click', function (event) {
         const scores = [];
+        let allFilledOut = true;
+        const name = $("#name").val().trim();
+        const photo = $("#photo-link").val().trim();
         event.preventDefault();
         for (let i = 0; i < questions.length; i++) {
-            scores.push($("input[name=q" + i + "]:checked").val());
+            const tempScore = $("input[name=q" + i + "]:checked").val();
+            if (!tempScore) allFilledOut = false;
+            scores.push(tempScore);
         }
+        if (allFilledOut && name && photo) {
+            const newPerson = {
+                name: name,
+                photo: photo,
+                scores: scores
+            }
 
-        const newPerson = {
-            name: $("#name").val().trim(),
-            photo: $("#photo-link").val().trim(),
-            scores: scores
-        }
-
-        $.post('/api/friends', newPerson, function (data) {
-            $("#suggested-friend-img").attr({
-                'src': data.photo,
-                'width': '592px',
-                'height': '512px'
+            $.post('/api/friends', newPerson, function (data) {
+                $("#suggested-friend-img").attr({
+                    'src': data.photo,
+                    'width': '592px',
+                    'height': '512px'
+                });
+                $("#suggested-friend-text").text(data.name);
+                $("#suggested-friend").slideDown();
+                console.log(data);
             });
-            $("#suggested-friend-text").text(data.name);
-            $("#suggested-friend").show();
-            console.log(data);
-        });
-        $("html").scrollTop(0);
+        } else {
+            $(".error-text").show();
+        }
     });
 
-    $("#close").on('click', function (){
-        $("#suggested-friend").hide();
+    $("#close").on('click', function () {
+        $("#suggested-friend").slideUp();
     })
     // Startup
+    $(".error-text").hide();
     $("#suggested-friend").hide();
     displayQuestions();
 </script>

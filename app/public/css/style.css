@@ -113,19 +113,24 @@ input[type='radio']:checked:after {
     border: 5px rgb(37, 37, 172, 0.7) solid;
     background-color: rgba(37, 37, 172, 0.7);
 }
+
+.error-text {
+    color: red;
+}
 #questions {
     text-align: left;
 }
 
 #footer {
-   
+   position: fixed;
+   bottom: 0;
 }
 
 #suggested-friend {
     background-color: white;
-    position:absolute;
+    position: fixed;
     left:50%; 
-    top:50%;
+    top:42%;
     height:587px; 
     width: 592px;
     margin-left:-304px; /*image width/2 */
@@ -155,6 +160,7 @@ input[type='radio']:checked:after {
     width: 28%;
     border: solid #00000000;
     border-top-right-radius: 5px;
+    cursor: pointer;
 }
 
 #submit {
