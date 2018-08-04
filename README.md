@@ -6,3 +6,4 @@ The way the app works is after the user submits their survey, the page send a PO
 
 The app is not limited to 10 questions, but if it is changed, all users should be removed. This is because the POST request will try to compare all the scores by using parseINT() and it cannot be used on something that is undefined.
 
+The app requires all fields to have some kind of value. If one or more of them don't, a small error in red text will appear right above the submit button at the bottom.
