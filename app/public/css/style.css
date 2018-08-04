@@ -1,4 +1,4 @@
-h1, h2, h3, p, a {
+h1, h2, h3, p, a, #submit {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #000000bd;
 }
@@ -47,7 +47,37 @@ p {
 }
 label {
     font-weight: 100;
+    margin-left: 2px;
 }
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -4px;
+    left: -2px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -4px;
+    left: -2px;
+    position: relative;
+    background-color: #7771c0;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
 .container {
     margin: 0 15%;
     text-align: center;
@@ -127,6 +157,11 @@ label {
     border-top-right-radius: 5px;
 }
 
+#submit {
+    width: 80%;
+    margin: 0 0 15px 0;
+    height: 40px;
+}
 .clearfix::after {
    content: '';
    clear: both;
